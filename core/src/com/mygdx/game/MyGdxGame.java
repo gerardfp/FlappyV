@@ -39,8 +39,6 @@ public class MyGdxGame extends ApplicationAdapter {
 
 		fitViewport = new FitViewport(640,480);
 		batch = new SpriteBatch();
-		batch.setProjectionMatrix(fitViewport.getCamera().combined);
-
 
 		font = new BitmapFont(Gdx.files.internal("press_start_2p.fnt"), Gdx.files.internal("press_start_2p_0.png"), false);
 		font.setColor(0.5f, 0.3f, 0.8f, 1);
