@@ -7,12 +7,14 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.utils.viewport.FitViewport;
 
 import java.util.Random;
 
 public class MyGdxGame extends ApplicationAdapter {
 	Random random;
 
+	FitViewport fitViewport;
 	SpriteBatch batch;
 	BitmapFont font;
 
@@ -34,7 +36,11 @@ public class MyGdxGame extends ApplicationAdapter {
 	@Override
 	public void create () {
 		random = new Random();
+
+		fitViewport = new FitViewport(640,480);
 		batch = new SpriteBatch();
+		batch.setProjectionMatrix(fitViewport.getCamera().combined);
+
 
 		font = new BitmapFont(Gdx.files.internal("press_start_2p.fnt"), Gdx.files.internal("press_start_2p_0.png"), false);
 		font.setColor(0.5f, 0.3f, 0.8f, 1);
@@ -98,6 +104,8 @@ public class MyGdxGame extends ApplicationAdapter {
 			batch.end();
 
 		} else if(pantalla == 0){
+			Gdx.gl.glClearColor(0, 0, 0, 1);
+			Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
 			if (Gdx.input.isKeyJustPressed(Input.Keys.ANY_KEY)) {
 				pantalla = 1;
@@ -107,6 +115,8 @@ public class MyGdxGame extends ApplicationAdapter {
 			batch.end();
 
 		} else if(pantalla == 2){
+			Gdx.gl.glClearColor(0, 0, 0, 1);
+			Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
 			if (Gdx.input.isKeyJustPressed(Input.Keys.ANY_KEY)) {
 				pantalla = 1;
@@ -126,5 +136,13 @@ public class MyGdxGame extends ApplicationAdapter {
 			batch.end();
 
 		}
+	}
+
+	@Override
+	public void resize(int width, int height) {
+		super.resize(width, height);
+
+		fitViewport.update(width, height, true);
+		batch.setProjectionMatrix(fitViewport.getCamera().combined);
 	}
 }
